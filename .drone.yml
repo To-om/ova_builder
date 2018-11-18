@@ -4,9 +4,34 @@ name: default
 
 
 steps:
+        - name: restore-cache
+          image: drillster/drone-volume-cache
+          settings:
+                  restore: true
+                  mount:
+                          - thehive-training/packer_cache
+          volumes:
+                  - name: cache
+                    path: /cache
+
         - name: build
           image: tooom/docker-vbox-packer
           privileged: true
           commands:
                   - cd thehive-training
                   - packer build thehive-training_virtualbox.json
+
+        - name: save-cache
+          image: drillster/drone-volume-cache
+          settings:
+                  rebuild: true
+                  mount:
+                          - thehive-training/packer_cache
+          volumes:
+                  - name: cache
+                    path: /cache
+
+volumes:
+        - name: cache
+          host:
+                  path: /opt/drone/cache
