@@ -5,6 +5,7 @@ name: default
 steps:
         - name: build
           image: tooom/docker-vbox-packer
+          privileged: true
           commands:
                   - cd thehive-training
                   - packer build thehive-training_virtualbox.json
