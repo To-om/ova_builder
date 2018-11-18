@@ -1,0 +1,10 @@
+---
+kind: pipeline
+name: default
+
+steps:
+        - name: build
+          image: tooom/docker-vbox-packer
+          command: |
+                  cd thehive-training
+                  packer build thehive-training_virtualbox.json
