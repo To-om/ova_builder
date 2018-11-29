@@ -19,7 +19,7 @@ steps:
                   - cd thehive-training
                   - pwd
                   - packer build thehive-training_virtualbox.json
-          volumes: [{name: output, path:/drone/src/thehive-training/output-thehive}]
+          volumes: [{name: output, path: /drone/src/thehive-training/output-thehive}]
 
         - name: save-cache
           image: drillster/drone-volume-cache
