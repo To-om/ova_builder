@@ -17,6 +17,7 @@ steps:
           privileged: true
           commands:
                   - cd thehive-training
+                  - pwd
                   - packer build thehive-training_virtualbox.json
           volumes: [{name: output, path:/drone/src/thehive-training/output-thehive}]
 
