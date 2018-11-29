@@ -10,9 +10,7 @@ steps:
                   restore: true
                   mount:
                           - thehive-training/packer_cache
-          volumes:
-                  - name: cache
-                    path: /cache
+          volumes: [{name: cache, path: /cache}]
 
         - name: build
           image: tooom/docker-vbox-packer
@@ -20,6 +18,7 @@ steps:
           commands:
                   - cd thehive-training
                   - packer build thehive-training_virtualbox.json
+          volumes: [{name: output, path:/drone/src/thehive-training/output-thehive}]
 
         - name: save-cache
           image: drillster/drone-volume-cache
@@ -27,11 +26,10 @@ steps:
                   rebuild: true
                   mount:
                           - thehive-training/packer_cache
-          volumes:
-                  - name: cache
-                    path: /cache
+          volumes: [{name: cache, path: /cache}]
 
 volumes:
         - name: cache
-          host:
-                  path: /opt/drone/cache
+          host: {path: /opt/drone/cache}
+        - name: output
+          host: {path: /opt/drone/output}
